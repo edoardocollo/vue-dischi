@@ -1,39 +1,46 @@
+let app = new Vue({
+  el: '#app',
+  data: {
+    discs: [],
+    genres: ['Tutti']
+  },
+  methods: {
+    hideInactive: function(genre) {
+      console.log(genre);
+      if (genre != 'Tutti') {
+
+        this.discs.forEach(function(item) {
+          if (item.genre == genre) {
+            item.visible = true;
+          } else {
+            item.visible = false;
+          }
 
 
-
-
-  let app = new Vue({
-    el: '#main_wrap',
-    data: {
-      dischi: null,
-      generi: [],
-    },
-    methods: {
-
-    },
-    mounted() {
-      var config = {
-        method: 'get',
-        url: 'https://flynn.boolean.careers/exercises/api/array/music',
-        headers: {}
-      };
-      const self = this;
-      axios(config)
-        .then(function(response) {
-          self.dischi = response.data.response;
-        })
-        .catch(function(error) {
-          console.log(error);
         });
-        setTimeout(function () {
-        console.log(app.dischi);
-          app.dischi.forEach(function(item){
-            console.log(item.genre);
-            if (!(app.generi.includes(item.genre))) {
 
-              app.generi.push(item.genre);
-            }
-          });
-        }, 1000);
+      } else {
+        this.discs.forEach(function(item) {
+          item.visible = true;
+
+
+        });
+      }
+
     },
-  });
+  },
+  mounted() {
+    axios
+      .get('https://flynn.boolean.careers/exercises/api/array/music')
+      .then(function(resp) {
+        console.log(resp.data.response);
+        resp.data.response.forEach(function(item) {
+          item.visible = true;
+          app.discs.push(item);
+          if (!(app.genres.includes(item.genre))) {
+            app.genres.push(item.genre);
+          }
+        });
+      });
+  },
+});
