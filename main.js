@@ -3,9 +3,10 @@
 
 
   let app = new Vue({
-    el: '.cds-container',
+    el: '#main_wrap',
     data: {
       dischi: null,
+      generi: [],
     },
     methods: {
 
@@ -25,8 +26,14 @@
           console.log(error);
         });
         setTimeout(function () {
-          console.log(app.dischi);
+        console.log(app.dischi);
+          app.dischi.forEach(function(item){
+            console.log(item.genre);
+            if (!(app.generi.includes(item.genre))) {
 
+              app.generi.push(item.genre);
+            }
+          });
         }, 1000);
     },
   });
