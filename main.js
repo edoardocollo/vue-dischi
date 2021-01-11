@@ -1,4 +1,4 @@
-$(document).ready(function() {
+
 
 
 
@@ -24,14 +24,9 @@ $(document).ready(function() {
         .catch(function(error) {
           console.log(error);
         });
+        setTimeout(function () {
+          console.log(app.dischi);
 
+        }, 1000);
     },
   });
-
-
-
-
-
-
-
-});
